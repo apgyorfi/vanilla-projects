@@ -18,6 +18,16 @@ function showSuccess(input) {
     formControl.className = 'form-control success';
 }
 
+// Check email is valid
+function checkEmail(input) {
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if (re.test(input.value.trim())) {
+    showSuccess(input);
+  } else {
+    showError(input, 'Email is not valid');
+  }
+}
+
 //Event listeners
 form.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -26,5 +36,25 @@ form.addEventListener("submit", function (e) {
     showError(username, 'Username is required');
   } else {
     showSuccess(username);
+  }
+
+  if (email.value === "") {
+    showError(email, 'Email is required');
+  } else if(!isValidEmail(email.value)) {
+    showError(email, 'Email is not valid');
+  } else {
+    showSuccess(email);
+  }
+
+  if (password.value === "") {
+    showError(password, 'Password is required');
+  } else {
+    showSuccess(password);
+  }
+
+  if (password2.value === "") {
+    showError(password2, 'Password 2 is required');
+  } else {
+    showSuccess(password2);
   }
 });
